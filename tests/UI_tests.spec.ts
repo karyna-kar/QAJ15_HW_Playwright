@@ -14,9 +14,7 @@ test.describe('Playwright UI Tests', async () => {
       //using Codegen
       await page.locator('[data-test="login-button"]').click();
       await expect(page.locator('[data-test="error"]')).toBeVisible();
-      await expect(page.locator('[data-test="error"]')).toContainText(
-        'Epic sadface: Username is required',
-      );
+      await expect(page.locator('[data-test="error"]')).toContainText('Epic sadface: Username is required');
     });
 
     test('Verify login with invalid credentials', async ({ page }) => {
@@ -25,9 +23,7 @@ test.describe('Playwright UI Tests', async () => {
       await page.locator('[data-test="password"]').fill('test');
       await page.locator('[data-test="login-button"]').click();
       await expect(page.locator('[data-test="error"]')).toBeVisible();
-      await expect(page.locator('[data-test="error"]')).toContainText(
-        'Epic sadface: Username and password do not match any user in this service',
-      );
+      await expect(page.locator('[data-test="error"]')).toContainText('Epic sadface: Username and password do not match any user in this service');
     });
 
     test('Verify successful login with standard_user', async ({ page }) => {
@@ -37,7 +33,7 @@ test.describe('Playwright UI Tests', async () => {
       await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
     });
   });
-  
+
   test.describe('Inventory Page', async () => {
     test.beforeEach(async ({ page }) => {
       await page.goto('https://www.saucedemo.com/');
@@ -68,7 +64,6 @@ test.describe('Playwright UI Tests', async () => {
       await page.locator(cartPageSelectors.firstItemButton).click();
       await expect(page.locator(cartPageSelectors.cartList)).toHaveCount(0);
       await expect(page.locator(cartPageSelectors.shoppingCart)).toHaveText('');
-      
     });
 
     test('Verify logout', async ({ page }) => {
