@@ -1,0 +1,28 @@
+{
+  "name": "qaj15_hw_playwright",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/karyna-kar/QAJ15_HW_Playwright#readme",
+  "bugs": {
+    "url": "https://github.com/karyna-kar/QAJ15_HW_Playwright/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karyna-kar/QAJ15_HW_Playwright.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "format": "npx prettier --write .",
+    "test": "npx playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^25.5.2",
+    "dotenv": "^17.4.1",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2"
+  }
+}
