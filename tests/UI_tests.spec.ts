@@ -1,4 +1,5 @@
-import { test, expect } from '@playwright/test';
+import { test} from '@playwright/test';
+import {  expect } from '../helpers/custom-assert';
 import { loginPageSelectors } from '../helpers/selectors';
 import { inventoryPageSelectors } from '../helpers/selectors';
 import { cartPageSelectors } from '../helpers/selectors';
@@ -7,10 +8,14 @@ import 'dotenv/config';
 test.describe('Playwright UI Tests', async () => {
   const username = process.env.TEST_USERNAME as string;
   const password = process.env.TEST_PASSWORD as string;
-  
+
   test.describe('Login Page', async () => {
     test.beforeEach(async ({ page }) => {
       await page.goto('https://www.saucedemo.com/');
+    });
+
+     test('Verify screenshot of Login page', async ({ page }) => {
+      await expect(page).toHaveScreenshot();
     });
 
     test('Verify mandatory inputs', async ({ page }) => {
@@ -30,9 +35,11 @@ test.describe('Playwright UI Tests', async () => {
     });
 
     test('Verify successful login with standard_user', async ({ page }) => {
+      await page.context().tracing.start({screenshots:true, snapshots:true});
       await page.locator(loginPageSelectors.username).fill(username);
       await page.locator(loginPageSelectors.password).fill(password);
       await page.locator(loginPageSelectors.loginButton).click();
+      await page.context().tracing.stop({path: 'trace.zip'});
       await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
     });
   });
@@ -47,14 +54,26 @@ test.describe('Playwright UI Tests', async () => {
     });
 
     test('Verify adding item to cart', async ({ page }) => {
-      const selectedItem = page.locator(inventoryPageSelectors.firstItemName).textContent();
       await page.locator(inventoryPageSelectors.firstItemButton).click();
       await expect(page.locator(inventoryPageSelectors.shoppingCart)).toHaveText('1');
       await page.locator(inventoryPageSelectors.shoppingCart).click();
       await expect(page).toHaveURL('https://www.saucedemo.com/cart.html');
       await expect(page.locator(cartPageSelectors.cartList)).toHaveCount(1);
-      const cartItem = page.locator(cartPageSelectors.firstItemName).textContent();
-      expect(selectedItem).toStrictEqual(cartItem);
+      const cartContent = await page.evaluate(() => {
+        const value = localStorage.getItem('cart-contents')
+        return value ? JSON.parse(value) : [];
+      });
+      expect(cartContent).toHaveLength(1);
+    });
+
+     test('Verify added item to cart', async ({ page }) => {
+      const selectedItem = await page.locator(inventoryPageSelectors.firstItemName).textContent();
+      await page.locator(inventoryPageSelectors.firstItemButton).click();
+      await expect(page.locator(inventoryPageSelectors.shoppingCart)).toHaveText('1');
+      await page.locator(inventoryPageSelectors.shoppingCart).click();
+      await expect(page).toHaveURL('https://www.saucedemo.com/cart.html');
+      await expect(page.locator(cartPageSelectors.cartList)).toHaveCount(1);
+      await expect(page).toMatchAddedItem(selectedItem!);
     });
 
     test('Verify deleting item from cart', async ({ page }) => {
