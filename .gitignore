@@ -7,4 +7,4 @@ node_modules
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
-/tests/UI_tests.spec.ts-snapshots/
+*-snapshots/
