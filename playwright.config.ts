@@ -32,7 +32,7 @@ export default defineConfig({
     video: 'off',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on'
+    //trace: 'on-first-retry'
   },
 
   timeout: 20000,
