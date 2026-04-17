@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test.describe('Test herokuapp/tables page', async () => {
-  test.only('Verify table', async ({ page }) => {
+  test('Verify table', async ({ page }) => {
     await page.goto('https://the-internet.herokuapp.com/tables');
     const title = await page.evaluate(() => document.title);
     expect(title).toEqual('The Internet');
