@@ -12,11 +12,11 @@ test.describe('Test herokuapp/download page', async () => {
   test('Verify downloading file', async ({ page }) => {
     await page.goto('https://the-internet.herokuapp.com/download');
     const downloadPromise = page.waitForEvent('download');
-    await page.getByText('test_sample_Playwright.txt').click();
+    await page.getByText('test_upload.txt').click();
     const download = await downloadPromise;
     await download.saveAs(filePath);
 
     const fileData = readFileSync(filePath, 'utf-8');
-    expect(fileData).toEqual('Sample file for upload test.\n');
+    expect(fileData).toEqual('Sample file for upload test');
   });
 });
