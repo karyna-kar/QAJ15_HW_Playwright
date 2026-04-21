@@ -14,7 +14,7 @@ test.describe('Test herokuapp/upload page', async () => {
     rmSync(path.dirname(filePath), { recursive: true, force: true });
   });
 
-  test('Verify uploading file', async ({ page, context }) => {
+  test('Verify uploading file', async ({ page }) => {
     await page.goto('https://the-internet.herokuapp.com/upload');
     await page.locator('#file-upload').setInputFiles(filePath);
     await page.locator('#file-submit').click();

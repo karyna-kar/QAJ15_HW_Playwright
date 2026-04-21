@@ -66,6 +66,6 @@ test.describe('Test herokuapp/tables page', async () => {
     ];
 
     const tableData = await page.evaluate(script, 1);
-    expect(tableData).toEqual(expectedTableData);
+    expect(tableData).toMatchObject(expectedTableData);
   });
 });

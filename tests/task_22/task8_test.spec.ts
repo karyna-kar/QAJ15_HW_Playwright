@@ -8,5 +8,6 @@ test.describe('Test herokuapp/javascript_alerts page', async () => {
       await dialog.dismiss();
     });
     await page.locator('button[onclick="jsConfirm()"]').click();
+    expect(page.locator('#result')).toHaveText('You clicked: Cancel');
   });
 });
