@@ -1,5 +1,4 @@
 import { defineConfig, devices } from '@playwright/test';
-import { on } from 'node:cluster';
 
 /**
  * Read environment variables from file.
@@ -32,7 +31,7 @@ export default defineConfig({
     video: 'off',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    //trace: 'on-first-retry'
+    trace: 'on'
   },
 
   timeout: 20000,
@@ -41,6 +40,10 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] }
+    },
+    {
+      name: 'task22',
+      testDir: 'tests/task_22'
     }
 
     // {
