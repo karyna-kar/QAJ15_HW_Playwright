@@ -46,6 +46,25 @@ export default defineConfig({
       testDir: 'tests/task_22'
     },
     {
+      name: 'standard-tests',
+      testDir: 'tests/task_23',
+      testMatch: 'hw-task3.spec.ts',
+      dependencies: ['setup-standard'],
+      use: {
+        storageState: '.auth/standard-user-state.json'
+      }
+    },
+    {
+      name: 'fixtures',
+      testDir: 'tests/task_23',
+      testMatch: 'fixture-tests.spec.ts'
+    },
+    {
+      name: 'setup-standard',
+      testDir: 'utills/setup',
+      testMatch: 'global-setup.ts'
+    },
+    {
       name: 'task25',
       testDir: 'tests/task_25'
     }

@@ -18,5 +18,13 @@ export const cartPageSelectors = {
   cartList: '.cart_list .cart_item',
   firstItemName: '.cart_list .cart_item:nth-child(3) .inventory_item_name',
   firstItemButton: '.cart_list .cart_item:nth-child(3) button',
-  shoppingCart: '.shopping_cart_link'
+  shoppingCart: '.shopping_cart_link',
+  checkoutButton: '#checkout'
+};
+
+export const checkoutStepOnePageSelectors = {
+  firstName: '#first-name',
+  lastName: '#last-name',
+  zipCode: '#postal-code',
+  continueButton: '#continue'
 };
