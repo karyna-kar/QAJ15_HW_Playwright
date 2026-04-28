@@ -44,6 +44,10 @@ export default defineConfig({
     {
       name: 'task22',
       testDir: 'tests/task_22'
+    },
+    {
+      name: 'task25',
+      testDir: 'tests/task_25'
     }
 
     // {
