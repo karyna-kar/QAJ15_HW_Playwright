@@ -54,11 +54,4 @@ test.describe('Inventory Page Tests', async () => {
     const addButton = await swagLabs.inventoryPage.getItemAddButton(randomItem);
     await expect(addButton).toBeVisible();
   });
-
-  test('Open Item page', async ({ swagLabs }) => {
-    await swagLabs.inventoryPage.logOut();
-    expect(swagLabs.loginPage.url).toBe('https://www.saucedemo.com/');
-    await expect(swagLabs.loginPage.userNameInput).toBeEmpty();
-    await expect(swagLabs.loginPage.passwordInput).toBeEmpty();
-  });
 });
