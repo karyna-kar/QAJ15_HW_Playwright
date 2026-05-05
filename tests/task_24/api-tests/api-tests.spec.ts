@@ -1,22 +1,28 @@
 import { expect } from '@playwright/test';
 import { test } from '../../../fixtures/custome-fixtures';
-import { APIResponse } from '@playwright/test';
 
 test.describe.configure({ mode: 'parallel' });
 
 let originalPayload: any;
-let response: APIResponse;
 let createdIds: string[] = [];
 
 test.describe('Test RESTful API', () => {
-  test.describe('Test POST /objects', () => {
-    test.afterAll(async ({ restfulControllerAuthorizedUser }) => {
-      const responseForDeleting = await restfulControllerAuthorizedUser.getObjects();
-      const body = await responseForDeleting.json();
-      const requests = body.map((el: any) => restfulControllerAuthorizedUser.deleteObjectById(el.id));
-      await Promise.all(requests);
-    });
+  test.afterAll(async ({ restfulControllerAuthorizedUser }) => {
+    const responseForDeleting = await restfulControllerAuthorizedUser.getObjects();
+    const body = await responseForDeleting.json();
 
+    await Promise.all(body.map((el: any) => restfulControllerAuthorizedUser.deleteObjectById(el.id)));
+
+    await expect
+      .poll(async () => {
+        const res = await restfulControllerAuthorizedUser.getObjects();
+        const data = await res.json();
+        return data.length;
+      })
+      .toBe(0);
+  });
+
+  test.describe('Test POST /objects', () => {
     test('POST /objects: check failed Authorization - no api-key header', async ({ restfulControllerNotAuthorizedUser }) => {
       const originalPayload = {
         name: 'Test Karyna Happy',
@@ -109,11 +115,7 @@ test.describe('Test RESTful API', () => {
       createdIds.push(body.id);
     });
 
-    test.afterAll(async ({ restfulControllerAuthorizedUser }) => {
-      const responseForDeleting = await restfulControllerAuthorizedUser.getObjects();
-      const body = await responseForDeleting.json();
-      const requests = body.map((el: any) => restfulControllerAuthorizedUser.deleteObjectById(el.id));
-      await Promise.all(requests);
+    test.afterAll(async () => {
       createdIds.length = 0;
     });
 
@@ -206,11 +208,7 @@ test.describe('Test RESTful API', () => {
       createdIds.push(body.id);
     });
 
-    test.afterAll(async ({ restfulControllerAuthorizedUser }) => {
-      const responseForDeleting = await restfulControllerAuthorizedUser.getObjects();
-      const body = await responseForDeleting.json();
-      const requests = body.map((el: any) => restfulControllerAuthorizedUser.deleteObjectById(el.id));
-      await Promise.all(requests);
+    test.afterAll(async () => {
       createdIds.length = 0;
     });
 
@@ -298,11 +296,7 @@ test.describe('Test RESTful API', () => {
       createdIds.push(body.id);
     });
 
-    test.afterAll(async ({ restfulControllerAuthorizedUser }) => {
-      const responseForDeleting = await restfulControllerAuthorizedUser.getObjects();
-      const body = await responseForDeleting.json();
-      const requests = body.map((el: any) => restfulControllerAuthorizedUser.deleteObjectById(el.id));
-      await Promise.all(requests);
+    test.afterAll(async () => {
       createdIds.length = 0;
     });
 

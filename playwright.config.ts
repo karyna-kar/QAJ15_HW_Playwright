@@ -65,9 +65,14 @@ export default defineConfig({
       testMatch: 'global-setup.ts'
     },
     {
-      name: 'api-tests',
+      name: 'api-tests-GET',
       testDir: 'tests/task_24/api-tests',
-      fullyParallel: false,
+      testMatch: 'api-testsGet.spec.ts'
+    },
+    {
+      name: 'api-tests-OtherEndpoints',
+      testDir: 'tests/task_24/api-tests',
+      testMatch: 'api-tests.spec.ts'
     }
 
     // {
