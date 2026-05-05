@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 import { BasePageLoggedIn } from './base_page_logged_in';
 
-export class CeckoutStepOne extends BasePageLoggedIn {
+export class CheckoutStepOne extends BasePageLoggedIn {
   readonly firstNameInput: Locator;
   readonly lastNameInput: Locator;
   readonly postalCodeInput: Locator;
@@ -12,7 +12,6 @@ export class CeckoutStepOne extends BasePageLoggedIn {
   constructor(page: Page) {
     super(page, 'https://www.saucedemo.com/checkout-step-one.html');
     this.firstNameInput = page.locator('[data-test="firstName"]');
-    this.lastNameInput = page.locator('[data-test="lastName"]');
     this.lastNameInput = page.locator('[data-test="lastName"]');
     this.postalCodeInput = page.locator('[data-test="postalCode"]');
     this.cancelButton = page.locator('[data-test="cancel"]');

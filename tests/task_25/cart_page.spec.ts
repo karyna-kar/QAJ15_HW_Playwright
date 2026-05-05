@@ -11,9 +11,9 @@ test.describe('Cart Page Tests', async () => {
   });
 
   test('Verify deleting item from cart', async ({ swagLabs }) => {
-    await swagLabs.cartPage.addSeveralItems();
+    await swagLabs.cartPage.addSeveralItems([4, 0]);
     await expect(swagLabs.cartPage.cartList).toHaveCount(2);
-    await swagLabs.cartPage.deleteButton.click();
+    await swagLabs.cartPage.deleteButtons.first().click();
     await expect(swagLabs.cartPage.cartList).toHaveCount(1);
   });
 
@@ -23,7 +23,7 @@ test.describe('Cart Page Tests', async () => {
   });
 
   test('Verify Checkout Button - with not empty cart', async ({ swagLabs, page }) => {
-    await swagLabs.cartPage.addSeveralItems();
+    await swagLabs.cartPage.addSeveralItems([4, 0]);
     await swagLabs.cartPage.checkoutButton.click();
     expect(page).toHaveURL('https://www.saucedemo.com/checkout-step-one.html');
   });
