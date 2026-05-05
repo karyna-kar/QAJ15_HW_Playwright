@@ -77,6 +77,10 @@ export default defineConfig({
       name: 'api-tests-OtherEndpoints',
       testDir: 'tests/task_24/api-tests',
       testMatch: 'api-tests.spec.ts'
+    },
+    {
+      name: 'mock-api-tests',
+      testDir: 'tests/task_24/mock-api-tests'
     }
 
     // {
