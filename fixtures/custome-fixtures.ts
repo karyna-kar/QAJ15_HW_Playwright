@@ -1,9 +1,11 @@
 import { test as baseTest } from '@playwright/test';
 import 'dotenv/config';
+import { SwagLabs } from '../tests/task_25/page_object/swag_labs';
 
 interface ExtendedFicture {
   loginStandartUser: undefined;
   addItemsToCard: number;
+  swagLabs: SwagLabs;
 }
 
 export const test = baseTest.extend<ExtendedFicture>({
@@ -28,5 +30,10 @@ export const test = baseTest.extend<ExtendedFicture>({
       localStorage.setItem('cart-contents', JSON.stringify(items));
     }, addingItemsIds);
     await use(addingItemsIds.length);
+  },
+
+  swagLabs: async ({ page }, use) => {
+    const myFactory = new SwagLabs(page);
+    await use(myFactory);
   }
 });

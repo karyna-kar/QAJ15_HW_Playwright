@@ -63,6 +63,10 @@ export default defineConfig({
       name: 'setup-standard',
       testDir: 'utills/setup',
       testMatch: 'global-setup.ts'
+    },
+    {
+      name: 'task25',
+      testDir: 'tests/task_25'
     }
 
     // {
