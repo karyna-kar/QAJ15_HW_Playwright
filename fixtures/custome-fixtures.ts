@@ -1,10 +1,12 @@
 import { test as baseTest } from '@playwright/test';
 import { RestfulController } from '../tests/task_24/api-tests/controller-api';
 import 'dotenv/config';
+import { SwagLabs } from '../tests/task_25/page_object/swag_labs';
 
 interface ExtendedFicture {
   loginStandartUser: undefined;
   addItemsToCard: number;
+  swagLabs: SwagLabs;
   restfulControllerAuthorizedUser: RestfulController;
   restfulControllerNotAuthorizedUser: RestfulController;
   restfulControllerInvalidApiKey: RestfulController;
@@ -32,6 +34,11 @@ export const test = baseTest.extend<ExtendedFicture>({
       localStorage.setItem('cart-contents', JSON.stringify(items));
     }, addingItemsIds);
     await use(addingItemsIds.length);
+  },
+
+  swagLabs: async ({ page }, use) => {
+    const myFactory = new SwagLabs(page);
+    await use(myFactory);
   },
 
   restfulControllerAuthorizedUser: async ({ playwright }, use) => {
