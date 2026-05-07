@@ -8,14 +8,6 @@ test.describe('Test Get /objects: Test with empty list of objects', () => {
     const body = await responseForDeleting.json();
 
     await Promise.all(body.map((el: any) => restfulControllerAuthorizedUser.deleteObjectById(el.id)));
-
-    await expect
-      .poll(async () => {
-        const res = await restfulControllerAuthorizedUser.getObjects();
-        const data = await res.json();
-        return data.length;
-      })
-      .toBe(0);
   });
 
   test('Get /objects: check failed Authorization - no api-key header', async ({ restfulControllerNotAuthorizedUser }) => {

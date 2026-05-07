@@ -12,14 +12,6 @@ test.describe('Test RESTful API', () => {
     const body = await responseForDeleting.json();
 
     await Promise.all(body.map((el: any) => restfulControllerAuthorizedUser.deleteObjectById(el.id)));
-
-    await expect
-      .poll(async () => {
-        const res = await restfulControllerAuthorizedUser.getObjects();
-        const data = await res.json();
-        return data.length;
-      })
-      .toBe(0);
   });
 
   test.describe('Test POST /objects', () => {

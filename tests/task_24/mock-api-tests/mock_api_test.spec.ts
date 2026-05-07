@@ -81,13 +81,13 @@ test.describe('Login Page', async () => {
         status: 404,
         contentType: 'application/json',
         body: JSON.stringify({
-          error: 'Not Found123'
+          message: 'Not Found'
         })
       });
     });
 
     await page.locator(buttonLocator).click();
-    await expect(page.locator(resultLocator)).toHaveText('Error 404: undefined');
+    await expect(page.locator(resultLocator)).toHaveText('Error 404: Not Found');
   });
 
   test('Mock 500 response status code', async ({ page }) => {
@@ -96,12 +96,12 @@ test.describe('Login Page', async () => {
         status: 500,
         contentType: 'application/json',
         body: JSON.stringify({
-          error: 'Internal Server Error'
+          message: 'Internal Server Error'
         })
       });
     });
 
     await page.locator(buttonLocator).click();
-    await expect(page.locator(resultLocator)).toHaveText('Error 500: undefined');
+    await expect(page.locator(resultLocator)).toHaveText('Error 500: Internal Server Error');
   });
 });
